@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html style = 'font-size : 8px'>
+<head>
+    <title> GottaTry</title>
+    <link rel = 'stylesheet' href = '../static/CSS/StyleTp.css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <span id = 'hmbgr'></span> <span id = 'vtext'>Menu</span>
+        <span class = 'green' id = 'premium'>Log Out</span>
+    </header>
+    <nav id = 'nav' class = 'grey'>
+        <div> Dashboard </div>
+        <div> Logs </div>
+        <div> Intruders </div>
+        <div> Manage Users </div>
+    </nav>
+    <div class = 'content' id = 'content'>
+        <div id = 'left'>
+            <div id = 'heading'>
+                <span id = 'incomp' >Incomplete</span>
+                <span id = 'comp' class = 'bactive'>Completed</span>
+            </div>
+            <div id = 'namefd'>
+                <textarea id = 'tname' rows = '1', cols = '85', maxlength = '100', placeholder = 'Enter the name of your task', name = 'name'></textarea>
+                <button> <i class = 'fa fa-plus green'></i> Add Task </button>
+            </div>
+            <div class = 'hide'>
+            <div id = 'listitems'>
+                <i class = 'fa fa-square-o'></i> <span id = 'li'></span>
+            </div>
+            </div>
+        </div>
+        <div id = 'right'></div>
+    </div>
+
+    <footer>
+        credits: 
+        <a class = 'hide' href="https://www.flaticon.com/free-icons/menu" title="menu icons">Menu icons created by Catalin Fertu - Flaticon</a>
+    </footer>
+
+    <script src = '../static/JavaScript/GDfunctions.Js'></script>
+</body>
+</html>

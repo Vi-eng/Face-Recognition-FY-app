@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html style = 'font-size : 8px'>
+<head>
+    <title> {{ title }} </title>
+    <link rel = 'stylesheet' href = '../static/CSS/StyleTp.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {% block head %}
+    {% endblock %}
+</head>
+
+<body>
+    <header>
+        <span id = 'hmbgr'></span> <span id = 'vtext'>Menu</span>
+        <span class = 'green' id = 'premium'><a href= "{{ url_for('index') }}" class = 'green'>Log Out </a></span>
+    </header>
+    <nav id = 'nav'>
+        <div> <span id = 'dash' class = 'icon'></span> <a href = "{{ url_for('dashboard') }}" class = 'grey nav'> Dashboard </a> </div>
+        <div> <span id = 'logs' class = 'icon'></span> <a href = "{{ url_for('logs') }}" class = 'grey nav'> Logs </a> </div>
+        <div> <span id = 'live' class = 'icon'></span> <a href = "{{ url_for('live') }}" class = 'grey nav'> Live Feed </a> </div>
+        <div> <span id = 'users' class = 'icon'></span> <a href = "{{ url_for('manageusers') }}" class = 'grey nav'> Manage Users </a> </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <script src = '../static/JavaScript/navfunctions.Js'></script>
+</body>
+</html>

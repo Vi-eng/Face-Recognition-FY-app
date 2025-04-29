@@ -1,0 +1,34 @@
+{% extends 'Layout.html' %}
+
+{% block body %}
+<div id = 'content'>
+        
+    <div id = 'DashList'>
+        <div>
+        <span> Total Attendance Today: {{ no_logs }} </span>
+        </div>
+        <div>
+        <span><a href = "{{ url_for('live') }}" class = 'grey'>Live Feed</a> </span>
+        </div>
+    </div>
+
+    <div id = 'table'>
+    <table id = 'dashtable'>
+        <thead>
+            <th> Name </th>
+            <th> Time </th>
+        </thead>
+
+        <tbody>
+            {% for log in logs %}
+                <tr>
+                    <td>{{ log.Name }}</td>
+                    <td>{{ log.Time }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+</div>
+{% endblock %}

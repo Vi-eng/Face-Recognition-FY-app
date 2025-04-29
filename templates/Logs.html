@@ -1,0 +1,36 @@
+{% extends 'Layout.html' %}
+
+{% block body %}
+<div id = 'content'>
+        
+    <div id = 'DashList'>
+        <div>
+        <span> Personnel </span>
+        </div>
+        <div>
+        <span> Probability </span>
+        </div>
+    </div>
+
+    <div id = 'table'>
+    <table id = 'dashtable'>
+        <thead>
+            <th id = 'Name_th'> Name </th>
+            <th> Time </th>
+            <th> Probability </th>
+        </thead>
+
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td class = 'Name_tds'>{{ log.Name }}</td>
+                <td> <a class = 'See_more'> {{ log.Time }} </a></td>
+                <td class = 'Prob_td'> {{ log.Probability }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+</div>
+{% endblock %}

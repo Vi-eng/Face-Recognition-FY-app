@@ -1,0 +1,42 @@
+{% extends 'Layout.html' %}
+
+{% block body %}
+<div id = 'content'>
+        
+    <div id = 'DashList'>
+        <span id = 'Label'>Personnel </span>
+        <div id = 'selecter'>
+                <select name="Select_name" id="Select_name" class="s_dd" required>
+                        <option class = 'p-dd'>select</option>
+                        <option class="p-dd" value="Name_1">Name_1</option>
+                        <option class="p-dd" value="Name_2">Name_2</option>
+                        <option class="p-dd" value="Name_3">Name_3</option>
+                        <option class="p-dd" value="Name_4">Name_4</option>
+                        <option class="p-dd" value="Name_5">Name_5</option>
+                        <option class="p-dd" value="Name_6">Name_6</option>
+                        <option class="p-dd" value="Name_7">Name_7</option>
+                        <option class="p-dd" value="Name_8">Name_8</option>
+                        <option class="p-dd" value="Name_9">Name_9</option>
+                        <option class="p-dd" value="Name_10">Name_10</option>
+                </select>
+        </div>
+    </div>
+
+    <div id = 'table'>
+    <table id = 'dashtable'>
+        <thead>
+            <th> Time </th>
+            <th> Probability </th>
+            <th> Information </th>
+        </thead>
+        <tbody>
+            <td></td>
+            <td></td>
+            <td id = 'display-td'></td>
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+{% endblock %}
