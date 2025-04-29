@@ -18,7 +18,7 @@ function Datetime_format(time){
     const year = datetime.getFullYear();      // Full year (e.g., 2024)
     const month = datetime.getMonth() + 1;    // Month, zero-based index (add 1 to get the actual month)
     const day = datetime.getDate();           // Day of the month (1-31)
-    const hours = datetime.getHours() - 1;        // Hour (0-23)
+    const hours = datetime.getHours() - 1;    // Hour (0-23)
     const minutes = datetime.getMinutes();    // Minute (0-59)
     const seconds = datetime.getSeconds();    // Second (0-59)
 
@@ -101,8 +101,6 @@ if (Selector)
 });
 };
 
-//Get a tag, onclick, make same request as above, make size of name th and tb 0, expand #Dashlist to take that space, then place all the innerhtml needed!!!
-//Each onclick first deselects every other. If you were already clicked, it toggles you and undoes the entire previous event.
 var A_tags = document.getElementsByClassName('See_more');
 var Name_th = document.getElementById('Name_th');
 var Name_tds = document.getElementsByClassName('Name_tds');
@@ -171,36 +169,7 @@ Array.prototype.forEach.call(A_tags, (value) => {
             <div>
             <span> Probability </span>
             </div>`
-            //Return it to its original state
-            //I also have to defime my hidden and active classes 
+
         }
     });
 });
-
-
-
-// document.getElementById('Select_name').addEventListener('change', function() {
-//     var selectedOption = this.value;
-//     var xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = function() {
-//         if (xhr.readyState === XMLHttpRequest.DONE) {
-//             if (xhr.status === 200) {
-//                 var person = JSON.parse(xhr.responseText);
-//                 var imagePath = `../static/Images%20and%20Icons/Images/${person.name}.jpg` // format the file path to relative 
-//                 console.log(imagePath);
-//                 document.getElementById('display-data').innerHTML = 
-//                 `<div id = 'half-1'> <img id = 'manage-img' src= ${imagePath} alt= "${person.name}'s picture" > </div>
-//                 <div id = 'half-2'>
-//                     <span> </br> Name: ${person.name} </span>
-//                     <span> </br> Gender: ${person.sex} </span>
-//                     <span> </br> Description: ${person.des}</span>
-//                 </div>`;
-//             } else {
-//                 console.error('Error:', xhr.status);
-//             }
-//         }
-//     };
-//     xhr.open('GET', '/get_logs_data?selected_option=' + selectedOption, true);
-//     xhr.send();
-// });
-

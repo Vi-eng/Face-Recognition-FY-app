@@ -90,17 +90,15 @@ def unknown_name(frame, face_encodings):
         else:
             known_np = np.array(value).reshape(1, -1)
             face_np = np.array(face_encodings).reshape(1, -1)
-            matches = face_recognition.compare_faces(known_np, face_np)
+            matches = face_recognition.compare_faces(known_np, face_np, tolerance = 0.5)
 
             # If match, return just name
             if matches[0]:
                 print(f'Match: {matches}, {key}')
                 return key
 
-    # Else create new unknown
-    filename = f'{new_unknown}_{datetime.now().strftime("%Y-%m-%d %H_%M_%S")}'
-    save_frame(filename, frame, output_dir)
-    print(f'{new_unknown} saved!')
+    #Save unknown faces to a separate dir
+    save_frame(new_unknown, frame, output_dir )
 
     # Add the most recent unknown to the dictionary and save all again as a pickle file.
     new_dict[new_unknown] = face_encodings
@@ -185,7 +183,6 @@ def SVC_pred(frame, face_encodings, face_locations):
 
         if confidence > 0.79:
             name = predictions[0]
-            labels.append(name)
             multi_conf.append(confidence)
 
         if name:
@@ -194,15 +191,17 @@ def SVC_pred(frame, face_encodings, face_locations):
             if isinstance(name, list):
                 person = name[0]
                 name = person
+            
+            labels.append(name)
+            # Draw a box around the face and label it
+            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
+            cv2.putText(frame, f'{name} {confidence:.2f}', (left, bottom + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+            
         
         else:
             labels.append(None)
             multi_conf.append(0)
-
-
-            # Draw a box around the face and label it
-            cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
-            cv2.putText(frame, name, (left, bottom + 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 1)
 
     ret_dict = {
         'frame': frame,
@@ -241,7 +240,7 @@ def process_faces(frame, face_locations, predicted, known_faces, img_id, current
         if predicted and index < len(predicted):
             found_match = False
             for existing_id, face_data in known_faces.items():
-                matches = face_recognition.compare_faces([face_data['encodings']], face_encoding)
+                matches = face_recognition.compare_faces([face_data['encodings']], face_encoding, tolerance = 0.5)
                 if matches[0]:
                     known_faces[existing_id]['prediction'].append(predicted[index])
                     if not known_faces[existing_id].get('datetime'):
@@ -308,14 +307,6 @@ def face_upload(frame=None):
         # Get encodings for the current faces
         current_face_encodings = face_recognition.face_encodings(rgb_frame, face_locations)
 
-        # Load unknown encodings if they exist
-        try:
-            with open('unknown_encodings.pkl', 'rb') as f:
-                unknown_face_encodings = pickle.load(f)
-        except (FileNotFoundError, pickle.UnpicklingError) as e:
-            print(f"Error loading encodings: {e}")
-            unknown_face_encodings = {}
-
         # Predict with SVC
         returned = SVC_pred(frame, current_face_encodings, face_locations)
 
@@ -346,14 +337,13 @@ def face_upload(frame=None):
                 date = known_faces[img_id].get('datetime')
                 if date:
                     filename = f'{highest} {date.strftime("%Y-%m-%d %H_%M_%S")}'
-                    save_frame(filename, frame)
                     print(f'The name: {highest}, The probability: {prob}, The time: {date}')
 
                 # Clear prediction history after processing
                 known_faces[img_id]['prediction'] = []
                 known_faces[img_id]['datetime'] = None
 
-                return [highest, prob, date]
+                return [highest, prob, date, frame, filename]
             
             else:
                 continue

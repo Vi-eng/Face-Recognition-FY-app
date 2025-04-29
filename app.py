@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, Response, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from image_rec_insightface import database, face_upload
+from image_rec_insightface import database, face_upload, save_frame
 import urllib.parse
 # from threading import Thread, Event
 from multiprocessing import Process, Event  # Import Process and Event from multiprocessing
@@ -43,6 +43,7 @@ def update_log(received_list = None):
             new_log = Logs(Name=name, Probability=prob, Time = time)
             db.session.add(new_log)
             db.session.commit()
+            save_frame(rec_list[4], rec_list[3])
         else:
             print(f'Last seen was {(time - most_recent_log.Time).total_seconds()} seconds ago!')
     
